@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="Free professional resume builder. Create, preview, and download your resume as PDF instantly. No sign-up required."
+        />
+        <meta
+            name="keywords"
+            content="resume builder, CV maker, free resume, PDF download, professional resume"
+        />
+        <title>ResumeForge – Professional Resume Builder</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="css/styles.css" />
+    </head>
+    <body>
+        <!-- ========== HEADER ========== -->
+        <header class="site-header" role="banner">
+            <div class="header-inner">
+                <div class="brand">
+                    <span class="brand-icon">📄</span>
+                    <span class="brand-name">ResumeForge</span>
+                </div>
+                <div class="header-meta">
+                    <span class="author-tag"
+                        >by <strong>Meghnath Marndi</strong> ·
+                        <a href="mailto:meghmathmarndi@gmail.com"
+                            >meghmathmarndi@gmail.com</a
+                        ></span
+                    >
+                    <a
+                        href="https://digitalheroesco.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        id="dh-badge-btn"
+                        class="dh-btn"
+                        aria-label="Built for Digital Heroes – visit digitalheroesco.com"
+                        >⚡ Built for Digital Heroes</a
+                    >
+                </div>
+            </div>
+        </header>
+
+        <!-- ========== MAIN LAYOUT ========== -->
+        <main class="app-layout" role="main">
+            <!-- LEFT PANEL: Form -->
+            <section class="form-panel" aria-label="Resume form">
+                <!-- Template Switcher -->
+                <div class="section-card template-switcher">
+                    <h2 class="section-title">Choose Template</h2>
+                    <div
+                        class="template-grid"
+                        role="radiogroup"
+                        aria-label="Select resume template"
+                    >
+                        <button
+                            class="tpl-btn active"
+                            data-tpl="classic"
+                            role="radio"
+                            aria-checked="true"
+                            id="tpl-classic"
+                        >
+                            <span class="tpl-preview tpl-classic-prev"></span>
+                            <span>Classic</span>
+                        </button>
+                        <button
+                            class="tpl-btn"
+                            data-tpl="modern"
+                            role="radio"
+                            aria-checked="false"
+                            id="tpl-modern"
+                        >
+                            <span class="tpl-preview tpl-modern-prev"></span>
+                            <span>Modern</span>
+                        </button>
+                        <button
+                            class="tpl-btn"
+                            data-tpl="minimal"
+                            role="radio"
+                            aria-checked="false"
+                            id="tpl-minimal"
+                        >
+                            <span class="tpl-preview tpl-minimal-prev"></span>
+                            <span>Minimal</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Personal Information -->
+                <div class="section-card" id="section-personal">
+                    <h2 class="section-title">
+                        <span class="section-icon">👤</span> Personal
+                        Information
+                    </h2>
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label for="fullName">Full Name *</label>
+                            <input
+                                type="text"
+                                id="fullName"
+                                placeholder="e.g. Jane Doe"
+                                autocomplete="name"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input
+                                type="email"
+                                id="email"
+                                placeholder="jane@example.com"
+                                autocomplete="email"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input
+                                type="tel"
+                                id="phone"
+                                placeholder="+1 (555) 000-0000"
+                                autocomplete="tel"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input
+                                type="text"
+                                id="address"
+                                placeholder="City, State, Country"
+                                autocomplete="address-level2"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="linkedin">LinkedIn URL</label>
+                            <input
+                                type="url"
+                                id="linkedin"
+                                placeholder="https://linkedin.com/in/janedoe"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="github">GitHub URL</label>
+                            <input
+                                type="url"
+                                id="github"
+                                placeholder="https://github.com/janedoe"
+                            />
+                        </div>
+                        <div class="form-group form-full">
+                            <label for="portfolio">Portfolio Website</label>
+                            <input
+                                type="url"
+                                id="portfolio"
+                                placeholder="https://janedoe.dev"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Professional Summary -->
+                <div class="section-card" id="section-summary">
+                    <h2 class="section-title">
+                        <span class="section-icon">💼</span> Professional
+                        Summary
+                    </h2>
+                    <div class="form-group">
+                        <label for="summary">Summary</label>
+                        <textarea
+                            id="summary"
+                            rows="4"
+                            placeholder="Write a compelling professional summary..."
+                        ></textarea>
+                    </div>
+                    <button class="gen-btn" id="genSummaryBtn" type="button">
+                        ✨ Generate Summary
+                    </button>
+                </div>
+
+                <!-- Career Objective -->
+                <div class="section-card" id="section-objective">
+                    <h2 class="section-title">
+                        <span class="section-icon">🎯</span> Career Objective
+                        <span class="optional-tag">Optional</span>
+                    </h2>
+                    <div class="form-group">
+                        <label for="objective">Objective</label>
+                        <textarea
+                            id="objective"
+                            rows="3"
+                            placeholder="State your career goals and what you bring to the role..."
+                        ></textarea>
+                    </div>
+                    <button class="gen-btn" id="genObjectiveBtn" type="button">
+                        ✨ Generate Career Objective
+                    </button>
+                </div>
+
+                <!-- Education -->
+                <div class="section-card" id="section-education">
+                    <h2 class="section-title">
+                        <span class="section-icon">🎓</span> Education
+                    </h2>
+                    <div id="educationList"></div>
+                    <button class="add-btn" id="addEducationBtn" type="button">
+                        + Add Education
+                    </button>
+                </div>
+
+                <!-- Skills -->
+                <div class="section-card" id="section-skills">
+                    <h2 class="section-title">
+                        <span class="section-icon">⚡</span> Skills
+                    </h2>
+                    <div class="skill-input-row">
+                        <input
+                            type="text"
+                            id="skillInput"
+                            placeholder="e.g. JavaScript, React, Node.js"
+                            aria-label="Skill name"
+                        />
+                        <button
+                            class="add-btn inline-add"
+                            id="addSkillBtn"
+                            type="button"
+                        >
+                            + Add
+                        </button>
+                    </div>
+                    <div
+                        id="skillTagsContainer"
+                        class="skill-tags"
+                        role="list"
+                        aria-label="Skills list"
+                    ></div>
+                </div>
+
+                <!-- Projects -->
+                <div class="section-card" id="section-projects">
+                    <h2 class="section-title">
+                        <span class="section-icon">🚀</span> Projects
+                    </h2>
+                    <div id="projectsList"></div>
+                    <button class="add-btn" id="addProjectBtn" type="button">
+                        + Add Project
+                    </button>
+                </div>
+
+                <!-- Experience -->
+                <div class="section-card" id="section-experience">
+                    <h2 class="section-title">
+                        <span class="section-icon">🏢</span> Experience
+                    </h2>
+                    <div id="experienceList"></div>
+                    <button class="add-btn" id="addExperienceBtn" type="button">
+                        + Add Experience
+                    </button>
+                </div>
+
+                <!-- Certifications -->
+                <div class="section-card" id="section-certifications">
+                    <h2 class="section-title">
+                        <span class="section-icon">🏆</span> Certifications
+                    </h2>
+                    <div id="certificationsList"></div>
+                    <button class="add-btn" id="addCertBtn" type="button">
+                        + Add Certification
+                    </button>
+                </div>
+
+                <!-- Achievements -->
+                <div class="section-card" id="section-achievements">
+                    <h2 class="section-title">
+                        <span class="section-icon">🌟</span> Achievements
+                    </h2>
+                    <div id="achievementsList"></div>
+                    <button
+                        class="add-btn"
+                        id="addAchievementBtn"
+                        type="button"
+                    >
+                        + Add Achievement
+                    </button>
+                </div>
+
+                <!-- Languages -->
+                <div class="section-card" id="section-languages">
+                    <h2 class="section-title">
+                        <span class="section-icon">🌐</span> Languages
+                    </h2>
+                    <div id="languagesList"></div>
+                    <button class="add-btn" id="addLanguageBtn" type="button">
+                        + Add Language
+                    </button>
+                </div>
+            </section>
+
+            <!-- RIGHT PANEL: Preview + Actions -->
+            <aside class="preview-panel" aria-label="Resume preview">
+                <div class="preview-actions">
+                    <button
+                        class="action-btn primary"
+                        id="downloadPdfBtn"
+                        type="button"
+                    >
+                        ⬇ Download PDF
+                    </button>
+                    <button
+                        class="action-btn secondary"
+                        id="clearAllBtn"
+                        type="button"
+                    >
+                        🗑 Clear All
+                    </button>
+                </div>
+                <div
+                    id="resumePreview"
+                    class="resume-preview tpl-classic"
+                    aria-live="polite"
+                    aria-label="Live resume preview"
+                >
+                    <!-- Rendered by preview.js -->
+                </div>
+            </aside>
+        </main>
+
+        <!-- ========== FOOTER ========== -->
+        <footer class="site-footer" role="contentinfo">
+            <p>
+                ResumeForge &copy; 2026 &mdash; Built with ❤️ by
+                <strong>Meghnath Marndi</strong> &middot;
+                <a href="mailto:meghmathmarndi@gmail.com"
+                    >meghmathmarndi@gmail.com</a
+                >
+                &middot;
+                <a
+                    href="https://digitalheroesco.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Digital Heroes</a
+                >
+            </p>
+        </footer>
+
+        <!-- Scripts (deferred for performance) -->
+        <script src="js/data.js" defer></script>
+        <script src="js/generator.js" defer></script>
+        <script src="js/templates.js" defer></script>
+        <script src="js/preview.js" defer></script>
+        <script src="js/export.js" defer></script>
+        <script src="js/app.js" defer></script>
+    </body>
+</html>
