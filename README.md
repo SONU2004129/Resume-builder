@@ -2,30 +2,30 @@
 
 **A lightweight, production-ready Resume Builder built for the Digital Heroes developer trial.**
 
-> Built by **Aditya Kumar** | [adityakumar@example.com](mailto:adityakumar@example.com)
+> Built by **Meghnath Marndi** | [meghmathmarndi@gmail.com](mailto:Meghmathmarndi@gmail.com)
 > ⚡ [Built for Digital Heroes](https://digitalheroesco.com)
 
 ---
 
 ## Features
 
-| Feature | Details |
-|---|---|
-| **Personal Info** | Name, Email, Phone, Address, LinkedIn, GitHub, Portfolio |
-| **Summary** | Write or auto-generate with local template engine |
-| **Career Objective** | Optional field with auto-generation |
-| **Education** | Multiple entries with degree, institution, CGPA, years |
-| **Skills** | Dynamic add/remove tags, comma-separated batch entry |
-| **Projects** | Name, description, technologies |
-| **Experience** | Title, company, dates, description |
-| **Certifications** | Name, issuer, year |
-| **Achievements** | Title + description |
-| **Languages** | Language + proficiency level |
-| **3 Templates** | Classic (sidebar), Modern (accent), Minimal (clean) |
-| **Live Preview** | Debounced real-time preview as you type |
-| **PDF Export** | Browser print dialog – no libraries needed |
-| **Persistence** | Auto-saves to localStorage |
-| **Responsive** | Mobile-first, works on all screen sizes |
+| Feature              | Details                                                  |
+| -------------------- | -------------------------------------------------------- |
+| **Personal Info**    | Name, Email, Phone, Address, LinkedIn, GitHub, Portfolio |
+| **Summary**          | Write or auto-generate with local template engine        |
+| **Career Objective** | Optional field with auto-generation                      |
+| **Education**        | Multiple entries with degree, institution, CGPA, years   |
+| **Skills**           | Dynamic add/remove tags, comma-separated batch entry     |
+| **Projects**         | Name, description, technologies                          |
+| **Experience**       | Title, company, dates, description                       |
+| **Certifications**   | Name, issuer, year                                       |
+| **Achievements**     | Title + description                                      |
+| **Languages**        | Language + proficiency level                             |
+| **3 Templates**      | Classic (sidebar), Modern (accent), Minimal (clean)      |
+| **Live Preview**     | Debounced real-time preview as you type                  |
+| **PDF Export**       | Browser print dialog – no libraries needed               |
+| **Persistence**      | Auto-saves to localStorage                               |
+| **Responsive**       | Mobile-first, works on all screen sizes                  |
 
 ## Tech Stack
 
@@ -70,4 +70,4 @@ python -m http.server 3000
 
 ---
 
-*© 2024 Aditya Kumar – Digital Heroes Developer Trial*
+_© 2026 Meghnath Marndi – Digital Heroes Developer Trial_
