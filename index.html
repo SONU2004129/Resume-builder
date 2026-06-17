@@ -60,35 +60,21 @@
                         role="radiogroup"
                         aria-label="Select resume template"
                     >
-                        <button
-                            class="tpl-btn active"
-                            data-tpl="classic"
-                            role="radio"
-                            aria-checked="true"
-                            id="tpl-classic"
-                        >
+                        <button class="tpl-btn active" data-tpl="classic" role="radio" aria-checked="true" id="tpl-classic">
                             <span class="tpl-preview tpl-classic-prev"></span>
                             <span>Classic</span>
                         </button>
-                        <button
-                            class="tpl-btn"
-                            data-tpl="modern"
-                            role="radio"
-                            aria-checked="false"
-                            id="tpl-modern"
-                        >
+                        <button class="tpl-btn" data-tpl="modern" role="radio" aria-checked="false" id="tpl-modern">
                             <span class="tpl-preview tpl-modern-prev"></span>
                             <span>Modern</span>
                         </button>
-                        <button
-                            class="tpl-btn"
-                            data-tpl="minimal"
-                            role="radio"
-                            aria-checked="false"
-                            id="tpl-minimal"
-                        >
+                        <button class="tpl-btn" data-tpl="minimal" role="radio" aria-checked="false" id="tpl-minimal">
                             <span class="tpl-preview tpl-minimal-prev"></span>
                             <span>Minimal</span>
+                        </button>
+                        <button class="tpl-btn" data-tpl="academic" role="radio" aria-checked="false" id="tpl-academic">
+                            <span class="tpl-preview tpl-academic-prev"></span>
+                            <span>Academic</span>
                         </button>
                     </div>
                 </div>
@@ -154,11 +140,19 @@
                         </div>
                         <div class="form-group form-full">
                             <label for="portfolio">Portfolio Website</label>
-                            <input
-                                type="url"
-                                id="portfolio"
-                                placeholder="https://janedoe.dev"
-                            />
+                            <input type="url" id="portfolio" placeholder="https://janedoe.dev" />
+                        </div>
+                        <!-- Photo upload: used by Academic template -->
+                        <div class="form-group form-full">
+                            <label for="photoUpload">
+                                Profile Photo
+                                <span class="optional-tag">Academic template</span>
+                            </label>
+                            <div class="photo-upload-row">
+                                <input type="file" id="photoUpload" accept="image/*" aria-label="Upload profile photo" />
+                                <div id="photoPreviewThumb" class="photo-thumb" aria-hidden="true"></div>
+                                <button class="add-btn inline-add" id="clearPhotoBtn" type="button" style="display:none">✕ Remove</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -232,12 +226,18 @@
                             + Add
                         </button>
                     </div>
-                    <div
-                        id="skillTagsContainer"
-                        class="skill-tags"
-                        role="list"
-                        aria-label="Skills list"
-                    ></div>
+                    <div id="skillTagsContainer" class="skill-tags" role="list" aria-label="Skills list"></div>
+                </div>
+
+                <!-- Skill Categories (for Academic template) -->
+                <div class="section-card" id="section-skillcats">
+                    <h2 class="section-title">
+                        <span class="section-icon">📋</span> Skill Categories
+                        <span class="optional-tag">Academic template</span>
+                    </h2>
+                    <p class="section-hint">Group your skills by category (e.g. Programming Languages, Tools &amp; Platforms).</p>
+                    <div id="skillCatsList"></div>
+                    <button class="add-btn" id="addSkillCatBtn" type="button">+ Add Category</button>
                 </div>
 
                 <!-- Projects -->

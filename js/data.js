@@ -7,17 +7,19 @@
 const ResumeData = {
   personal: {
     fullName: '', email: '', phone: '',
-    address: '', linkedin: '', github: '', portfolio: ''
+    address: '', linkedin: '', github: '', portfolio: '',
+    photo: ''           // base64 data URL for profile photo (Academic template)
   },
   summary: '',
   objective: '',
-  education: [],     // [{ degree, institution, cgpa, startYear, endYear }]
-  skills: [],        // ['JavaScript', 'React', ...]
-  projects: [],      // [{ name, description, tech }]
-  experience: [],    // [{ title, company, startDate, endDate, description }]
-  certifications: [],// [{ name, issuer, year }]
-  achievements: [],  // [{ title, description }]
-  languages: [],     // [{ name, proficiency }]
+  education: [],        // [{ degree, institution, cgpa, startYear, endYear }]
+  skills: [],           // ['JavaScript', 'React', ...]
+  skillCategories: [],  // [{ category, items }] – used by Academic template
+  projects: [],         // [{ name, description, tech }]
+  experience: [],       // [{ title, company, startDate, endDate, description }]
+  certifications: [],   // [{ name, issuer, year }]
+  achievements: [],     // [{ title, description }]
+  languages: [],        // [{ name, proficiency }]
   template: 'classic'
 };
 
@@ -40,11 +42,12 @@ function loadData() {
 
 /** Deep-reset all data */
 function clearData() {
-  ResumeData.personal = { fullName:'', email:'', phone:'', address:'', linkedin:'', github:'', portfolio:'' };
+  ResumeData.personal = { fullName:'', email:'', phone:'', address:'', linkedin:'', github:'', portfolio:'', photo:'' };
   ResumeData.summary = '';
   ResumeData.objective = '';
   ResumeData.education = [];
   ResumeData.skills = [];
+  ResumeData.skillCategories = [];
   ResumeData.projects = [];
   ResumeData.experience = [];
   ResumeData.certifications = [];

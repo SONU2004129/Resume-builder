@@ -243,12 +243,158 @@ function renderMinimal() {
 
 
 /* ============================================================
+   TEMPLATE: ACADEMIC (LaTeX-style – gray section boxes, table edu, photo)
+   ============================================================ */
+function renderAcademic() {
+  const p = ResumeData.personal;
+  const name = p.fullName || 'Your Name';
+
+  /* -- Header: left column (name/contact) + right column (photo) -- */
+  const contactLine1 = [
+    p.email   ? `<a href="mailto:${esc(p.email)}">${esc(p.email)}</a>` : '',
+    p.phone   ? esc(p.phone) : ''
+  ].filter(Boolean).join(' &nbsp;|&nbsp; ');
+
+  const contactLine2 = [
+    p.github    ? `<a href="${esc(p.github)}" target="_blank">${displayUrl(p.github)}</a>` : '',
+    p.linkedin  ? `<a href="${esc(p.linkedin)}" target="_blank">${displayUrl(p.linkedin)}</a>` : '',
+    p.portfolio ? `<a href="${esc(p.portfolio)}" target="_blank">${displayUrl(p.portfolio)}</a>` : ''
+  ].filter(Boolean).join(' &nbsp;|&nbsp; ');
+
+  const photoHTML = p.photo
+    ? `<div class="rv-ac-photo-col"><img src="${p.photo}" class="rv-ac-photo" alt="Profile photo"></div>`
+    : '';
+
+  const header = `
+    <div class="rv-header">
+      <div class="rv-ac-name-col">
+        <div class="rv-name">${esc(name)}</div>
+        ${p.address ? `<div class="rv-ac-subtitle">${esc(p.address)}</div>` : ''}
+        ${contactLine1 ? `<div class="rv-contact-bar">${contactLine1}</div>` : ''}
+        ${contactLine2 ? `<div class="rv-contact-bar">${contactLine2}</div>` : ''}
+      </div>
+      ${photoHTML}
+    </div>
+  `;
+
+  /* -- Education: HTML table (mirrors LaTeX tabularx) -- */
+  const eduTable = ResumeData.education.length ? `
+    <table class="rv-ac-table">
+      <thead>
+        <tr>
+          <th>Qualification</th>
+          <th>School / College</th>
+          <th>Year of Passing</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${ResumeData.education.map(e => `
+          <tr>
+            <td>${esc(e.degree)}</td>
+            <td>${esc(e.institution)}</td>
+            <td>${esc(e.endYear)}</td>
+            <td>${esc(e.cgpa)}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  ` : '';
+
+  /* -- Skills: categorized if available, else flat -- */
+  let skillsHTML = '';
+  if (ResumeData.skillCategories && ResumeData.skillCategories.length) {
+    skillsHTML = ResumeData.skillCategories.map(cat => `
+      <div class="rv-ac-skill-row">
+        <span class="rv-ac-skill-label">${esc(cat.category)}:</span>
+        <span>${esc(cat.items)}</span>
+      </div>
+    `).join('');
+  } else if (ResumeData.skills.length) {
+    skillsHTML = `<div class="rv-ac-skill-row">${ResumeData.skills.map(s => esc(s)).join(', ')}</div>`;
+  }
+
+  /* -- Experience: title | date, company | location, bullets -- */
+  const expHTML = ResumeData.experience.length ? ResumeData.experience.map(e => `
+    <div class="rv-entry">
+      <div class="rv-ac-exp-header">
+        <span class="rv-ac-exp-title">${esc(e.title)}</span>
+        <span class="rv-ac-exp-date">${esc(e.startDate)}${e.endDate ? ' \u2013 ' + esc(e.endDate) : ''}</span>
+      </div>
+      <div class="rv-ac-exp-sub">${esc(e.company)}</div>
+      ${e.description ? `<ul class="rv-ul">${e.description.split('\n').filter(l => l.trim()).map(l => `<li>${esc(l.trim())}</li>`).join('')}</ul>` : ''}
+    </div>
+  `).join('') : '';
+
+  /* -- Projects: name | tech stack, description | date, bullets -- */
+  const projHTML = ResumeData.projects.length ? ResumeData.projects.map(proj => `
+    <div class="rv-entry">
+      <div class="rv-ac-proj-header">
+        <span class="rv-ac-proj-title">${esc(proj.name)}</span>
+        ${proj.tech ? `<span class="rv-ac-proj-tech"><em>${esc(proj.tech)}</em></span>` : ''}
+      </div>
+      ${proj.description ? `<div class="rv-ac-proj-desc">${esc(proj.description)}</div>` : ''}
+    </div>
+  `).join('') : '';
+
+  /* -- Certifications: Name, Issuer | Date -- */
+  const certHTML = ResumeData.certifications.length ? `
+    <ul class="rv-ul">
+      ${ResumeData.certifications.map(c => `
+        <li>
+          <strong>${esc(c.name)}</strong>
+          ${c.issuer ? `, ${esc(c.issuer)}` : ''}
+          ${c.year   ? ` &nbsp;|&nbsp; <em>${esc(c.year)}</em>` : ''}
+        </li>
+      `).join('')}
+    </ul>
+  ` : '';
+
+  /* -- Achievements -- */
+  const achHTML = ResumeData.achievements.length ? `
+    <ul class="rv-ul">
+      ${ResumeData.achievements.map(a =>
+        `<li><strong>${esc(a.title)}</strong>${a.description ? ': ' + esc(a.description) : ''}</li>`
+      ).join('')}
+    </ul>
+  ` : '';
+
+  /* -- Academic section title renders a gray tcolorbox + rule -- */
+  function acSection(title, content) {
+    if (!content || !content.trim()) return '';
+    return `
+      <div class="rv-section rv-ac-section">
+        <div class="rv-section-title">${esc(title)}</div>
+        ${content}
+      </div>
+    `;
+  }
+
+  return `
+    ${header}
+    <div class="rv-body">
+      ${acSection('Summary',         textBlock(ResumeData.summary))}
+      ${acSection('Education',       eduTable)}
+      ${acSection('Experience',      expHTML)}
+      ${acSection('Skills',          skillsHTML)}
+      ${acSection('Projects',        projHTML)}
+      ${acSection('Certifications',  certHTML)}
+      ${acSection('Achievements',    achHTML)}
+      ${acSection('Languages',       renderLanguages())}
+    </div>
+  `;
+}
+
+
+/* ============================================================
    DISPATCH – call the right renderer by template name
    ============================================================ */
 function renderTemplate(templateName) {
   switch (templateName) {
-    case 'modern':  return renderModern();
-    case 'minimal': return renderMinimal();
-    default:        return renderClassic();
+    case 'modern':   return renderModern();
+    case 'minimal':  return renderMinimal();
+    case 'academic': return renderAcademic();
+    default:         return renderClassic();
   }
 }
+

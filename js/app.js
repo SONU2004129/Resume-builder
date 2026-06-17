@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Always start fresh — no localStorage restore
   populateForm();
   bindPersonalFields();
+  bindPhotoUpload();
   bindTextareas();
   bindTemplateSwitcher();
   bindGeneratorButtons();
@@ -22,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   bindDynamicSection('certificationsList','addCertBtn',          buildCertEntry,          'certifications');
   bindDynamicSection('achievementsList',  'addAchievementBtn',   buildAchievementEntry,   'achievements');
   bindDynamicSection('languagesList',     'addLanguageBtn',      buildLanguageEntry,      'languages');
+  bindDynamicSection('skillCatsList',     'addSkillCatBtn',      buildSkillCatEntry,      'skillCategories');
   bindActions();
   renderPreview();
 });
@@ -81,6 +83,46 @@ function bindPersonalFields() {
 
 
 /* ============================================================
+   PHOTO UPLOAD (Academic template)
+   ============================================================ */
+function bindPhotoUpload() {
+  const fileInput  = document.getElementById('photoUpload');
+  const thumbEl    = document.getElementById('photoPreviewThumb');
+  const clearBtn   = document.getElementById('clearPhotoBtn');
+  if (!fileInput) return;
+
+  fileInput.addEventListener('change', () => {
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    // Only accept images up to 5 MB
+    if (file.size > 5 * 1024 * 1024) {
+      alert('Photo must be under 5 MB.');
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      ResumeData.personal.photo = e.target.result;
+      // Show thumbnail in the form
+      thumbEl.innerHTML = `<img src="${e.target.result}" alt="Profile photo preview">`;
+      clearBtn.style.display = 'inline-flex';
+      schedulePreviewUpdate();
+    };
+    reader.readAsDataURL(file);
+  });
+
+  clearBtn.addEventListener('click', () => {
+    ResumeData.personal.photo = '';
+    thumbEl.innerHTML = '';
+    fileInput.value = '';
+    clearBtn.style.display = 'none';
+    schedulePreviewUpdate();
+  });
+}
+
+
+/* ============================================================
    TEXTAREAS (Summary / Objective)
    ============================================================ */
 function bindTextareas() {
@@ -93,7 +135,6 @@ function bindTextarea(id, setter) {
   if (!el) return;
   el.addEventListener('input', () => {
     setter(el.value);
-    saveData();
     schedulePreviewUpdate();
   });
 }
@@ -288,7 +329,6 @@ function createField(label, type, placeholder, currentValue, onChange) {
   input.value = currentValue || '';
   input.addEventListener('input', () => {
     onChange(input.value);
-    saveData();
     schedulePreviewUpdate();
   });
 
@@ -456,9 +496,37 @@ function bindActions() {
     clearData();
     // Reset form UI
     document.querySelectorAll('.entry-block').forEach(el => el.remove());
-    document.querySelectorAll('input, textarea').forEach(el => (el.value = ''));
+    document.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="url"], textarea').forEach(el => (el.value = ''));
     document.getElementById('skillTagsContainer').innerHTML = '';
+    // Reset photo
+    const thumb = document.getElementById('photoPreviewThumb');
+    if (thumb) thumb.innerHTML = '';
+    const clearBtn = document.getElementById('clearPhotoBtn');
+    if (clearBtn) clearBtn.style.display = 'none';
+    const photoInput = document.getElementById('photoUpload');
+    if (photoInput) photoInput.value = '';
     setActiveTemplate('classic');
     renderPreview();
   });
+}
+
+
+/* ---- SKILL CATEGORIES (Academic template) ---- */
+buildSkillCatEntry.emptyObject = () => ({ category: '', items: '' });
+
+function buildSkillCatEntry(index) {
+  const obj = ResumeData.skillCategories[index];
+
+  const block = document.createElement('div');
+  block.className = 'entry-block';
+
+  const row = document.createElement('div');
+  row.className = 'entry-row';
+  row.appendChild(createField('Category Name', 'text', 'e.g. Programming Languages', obj.category, v => obj.category = v));
+  row.appendChild(createField('Skills', 'text', 'e.g. Java, Python, C++', obj.items, v => obj.items = v));
+
+  block.appendChild(makeRemoveBtn('skillCatsList', buildSkillCatEntry, 'skillCategories', index));
+  block.appendChild(row);
+
+  return { element: block };
 }
